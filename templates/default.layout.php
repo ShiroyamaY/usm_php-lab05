@@ -3,14 +3,14 @@
  * @var string $title
  * @var string $content
  */
-echo "bread";
 ?>
+<!-- this is main layout -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'Recipe Book' ?></title>
+    <title><?php echo $title ?? 'Recipe Book' ?></title>
     <link rel="stylesheet" href="/assets/styles/app.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -27,12 +27,11 @@ echo "bread";
 </header>
 
 <main class="container">
-    <?php  ?>
     <?php echo $content ?>
 </main>
 
 <footer class="container">
-    <p>&copy; <?= date('Y') ?> Recipe Book. All rights reserved.</p>
+    <p>&copy; <?php echo date('Y') ?> Recipe Book. All rights reserved.</p>
 </footer>
 </body>
 </html>

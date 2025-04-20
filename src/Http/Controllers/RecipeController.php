@@ -11,11 +11,19 @@ class RecipeController
 {
     protected Database $db;
 
+    /**
+     * RecipeController constructor.
+     */
     public function __construct()
     {
         $this->db = Database::getInstance();
     }
 
+    /**
+     * Display a paginated list of recipes.
+     *
+     * @return string
+     */
     public function index(): string
     {
         $page = getCurrentPage();
@@ -45,6 +53,11 @@ class RecipeController
         ]);
     }
 
+    /**
+     * Create a new recipe.
+     *
+     * @return string
+     */
     public function create(): string
     {
         $errors = [];
@@ -84,7 +97,7 @@ class RecipeController
             }
         }
 
-        $categories = $this->db->select("SELECT * FROM categories ORDER BY name");;
+        $categories = $this->db->select("SELECT * FROM categories ORDER BY name");
 
         return View::renderWithLayout('recipe/create', [
             'title' => 'Add new recipe',
@@ -94,6 +107,12 @@ class RecipeController
         ]);
     }
 
+    /**
+     * Delete a recipe by ID.
+     *
+     * @param int $id
+     * @return void
+     */
     public function delete(int $id): void
     {
         if (!isset($id) || !is_numeric($id)) {
@@ -113,6 +132,12 @@ class RecipeController
         }
     }
 
+    /**
+     * Edit a recipe by ID.
+     *
+     * @param int $id
+     * @return string
+     */
     public function edit(int $id): string
     {
         $errors = [];
@@ -179,6 +204,12 @@ class RecipeController
         ]);
     }
 
+    /**
+     * Show recipe details by ID.
+     *
+     * @param int $id
+     * @return string
+     */
     public function show($id): string
     {
         $sql = "SELECT r.*, c.name as category_name 

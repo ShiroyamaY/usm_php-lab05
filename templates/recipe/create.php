@@ -12,7 +12,7 @@
         <p>Please fix the following errors:</p>
         <ul>
             <?php foreach ($errors as $error): ?>
-                <li><?= $error ?></li>
+                <li><?php echo $error ?></li>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -21,9 +21,9 @@
 <form method="post" action="/recipe/create">
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="<?= isset($formData['title']) ? sanitize($formData['title']) : '' ?>">
+        <input type="text" id="title" name="title" value="<?php echo isset($formData['title']) ? sanitize($formData['title']) : '' ?>">
         <?php if (isset($errors['title'])): ?>
-            <div class="error"><?= $errors['title'] ?></div>
+            <div class="error"><?php echo $errors['title'] ?></div>
         <?php endif; ?>
     </div>
 
@@ -32,13 +32,13 @@
         <select id="category" name="category">
             <option value="">Select a category</option>
             <?php foreach ($categories as $category): ?>
-                <option value="<?= $category['id'] ?>" <?= isset($formData['category']) && $formData['category'] == $category['id'] ? 'selected' : '' ?>>
-                    <?= sanitize($category['name']) ?>
+                <option value="<?php echo $category['id'] ?>" <?php echo isset($formData['category']) && $formData['category'] == $category['id'] ? 'selected' : '' ?>>
+                    <?php echo sanitize($category['name']) ?>
                 </option>
             <?php endforeach; ?>
         </select>
         <?php if (isset($errors['category'])): ?>
-            <div class="error"><?= $errors['category'] ?></div>
+            <div class="error"><?php echo $errors['category'] ?></div>
         <?php endif; ?>
     </div>
 
@@ -52,23 +52,23 @@
 
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea id="description" name="description" rows="3"><?= isset($formData['description']) ? sanitize($formData['description']) : '' ?></textarea>
+        <textarea id="description" name="description" rows="3"><?php echo isset($formData['description']) ? sanitize($formData['description']) : '' ?></textarea>
         <?php if (isset($errors['description'])): ?>
-            <div class="error"><?= $errors['description'] ?></div>
+            <div class="error"><?php echo $errors['description'] ?></div>
         <?php endif; ?>
     </div>
 
     <div class="form-group">
         <label for="steps">Steps (one per line)</label>
-        <textarea id="steps" name="steps" rows="5"><?= isset($formData['steps']) ? sanitize($formData['steps']) : '' ?></textarea>
+        <textarea id="steps" name="steps" rows="5"><?php echo isset($formData['steps']) ? sanitize($formData['steps']) : '' ?></textarea>
         <?php if (isset($errors['steps'])): ?>
-            <div class="error"><?= $errors['steps'] ?></div>
+            <div class="error"><?php echo $errors['steps'] ?></div>
         <?php endif; ?>
     </div>
 
     <div class="form-group">
         <label for="tags">Tags (comma separated)</label>
-        <input type="text" id="tags" name="tags" value="<?= isset($formData['tags']) ? sanitize($formData['tags']) : '' ?>">
+        <input type="text" id="tags" name="tags" value="<?php echo isset($formData['tags']) ? sanitize($formData['tags']) : '' ?>">
     </div>
 
     <button type="submit">Add Recipe</button>

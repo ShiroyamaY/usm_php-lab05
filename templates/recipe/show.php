@@ -14,7 +14,7 @@
     <ul>
         <?php foreach (explode("\n", $recipe['ingredients']) as $ingredient): ?>
             <?php if (trim($ingredient)): ?>
-                <li><?= sanitize(trim($ingredient)) ?></li>
+                <li><?php echo sanitize(trim($ingredient)) ?></li>
             <?php endif; ?>
         <?php endforeach; ?>
     </ul>
@@ -23,7 +23,7 @@
     <ol>
         <?php foreach (explode("\n", $recipe['steps']) as $step): ?>
             <?php if (trim($step)): ?>
-                <li><?= sanitize(trim($step)) ?></li>
+                <li><?php echo sanitize(trim($step)) ?></li>
             <?php endif; ?>
         <?php endforeach; ?>
     </ol>
@@ -33,7 +33,7 @@
         <div class="tags">
             <?php foreach (explode(',', $recipe['tags']) as $tag): ?>
                 <?php if (trim($tag)): ?>
-                    <span class="tag"><?= sanitize(trim($tag)) ?></span>
+                    <span class="tag"><?php echo sanitize(trim($tag)) ?></span>
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>

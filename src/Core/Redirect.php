@@ -1,11 +1,17 @@
 <?php
 namespace App\Core;
 
-use JetBrains\PhpStorm\NoReturn;
-
 class Redirect
 {
-    #[NoReturn] public static function to(string $toUrl, int $status = 301): void
+    /**
+     * Redirects to a given URL and terminates the script.
+     *
+     * @param string $toUrl  The target URL to redirect to (can be relative).
+     * @param int    $status HTTP status code for the redirect (default: 301).
+     *
+     * @return void
+     */
+    public static function to(string $toUrl, int $status = 301): void
     {
         if (!str_starts_with($toUrl, '/')) {
             $toUrl = '/' . $toUrl;
