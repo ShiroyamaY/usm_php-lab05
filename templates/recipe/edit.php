@@ -1,48 +1,75 @@
 <?php
 /**
  * @var array $recipe
+ * @var array $errors
+ * @var array $categories
  */
 ?>
-<div class="recipe-details">
-    <h2><?= sanitize($recipe['title']) ?></h2>
-    <p><strong>Category:</strong> <?= sanitize($recipe['category_name']) ?></p>
+<h2>Edit Recipe</h2>
 
-    <h3>Description</h3>
-    <p><?= nl2br(sanitize($recipe['description'])) ?></p>
-
-    <h3>Ingredients</h3>
-    <ul>
-        <?php foreach (explode("\n", $recipe['ingredients']) as $ingredient): ?>
-            <?php if (trim($ingredient)): ?>
-                <li><?= sanitize(trim($ingredient)) ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </ul>
-
-    <h3>Steps</h3>
-    <ol>
-        <?php foreach (explode("\n", $recipe['steps']) as $step): ?>
-            <?php if (trim($step)): ?>
-                <li><?= sanitize(trim($step)) ?></li>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </ol>
-
-    <?php if (!empty($recipe['tags'])): ?>
-        <h3>Tags</h3>
-        <div class="tags">
-            <?php foreach (explode(',', $recipe['tags']) as $tag): ?>
-                <?php if (trim($tag)): ?>
-                    <span class="tag"><?= sanitize(trim($tag)) ?></span>
-                <?php endif; ?>
+<?php if (!empty($errors)): ?>
+    <div class="error">
+        <p>Please fix the following errors:</p>
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li><?= $error ?></li>
             <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-
-    <div class="actions">
-        <a href="/recipe/edit?id=<?= $recipe['id'] ?>">Edit</a> |
-        <a href="/recipe/delete?id=<?= $recipe['id'] ?>"
-           onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</a> |
-        <a href="/">Back to all recipes</a>
+        </ul>
     </div>
-</div>
+<?php endif; ?>
+
+<form method="post" action="/recipe/edit/<?= $recipe['id'] ?>">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="<?= sanitize($recipe['title']) ?>">
+        <?php if (isset($errors['title'])): ?>
+            <div class="error"><?= $errors['title'] ?></div>
+        <?php endif; ?>
+    </div>
+
+    <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category">
+            <option value="">Select a category</option>
+            <?php foreach ($categories as $category): ?>
+                <option value="<?= $category['id'] ?>" <?= $recipe['category'] == $category['id'] ? 'selected' : '' ?>>
+                    <?= sanitize($category['name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <?php if (isset($errors['category'])): ?>
+            <div class="error"><?= $errors['category'] ?></div>
+        <?php endif; ?>
+    </div>
+
+    <div class="form-group">
+        <label for="ingredients">Ingredients (one per line)</label>
+        <textarea id="ingredients" name="ingredients" rows="5"><?= sanitize($recipe['ingredients']) ?></textarea>
+        <?php if (isset($errors['ingredients'])): ?>
+            <div class="error"><?= $errors['ingredients'] ?></div>
+        <?php endif; ?>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="3"><?= sanitize($recipe['description']) ?></textarea>
+        <?php if (isset($errors['description'])): ?>
+            <div class="error"><?= $errors['description'] ?></div>
+        <?php endif; ?>
+    </div>
+
+    <div class="form-group">
+        <label for="steps">Steps (one per line)</label>
+        <textarea id="steps" name="steps" rows="5"><?= sanitize($recipe['steps']) ?></textarea>
+        <?php if (isset($errors['steps'])): ?>
+            <div class="error"><?= $errors['steps'] ?></div>
+        <?php endif; ?>
+    </div>
+
+    <div class="form-group">
+        <label for="tags">Tags (comma separated)</label>
+        <input type="text" id="tags" name="tags" value="<?= sanitize($recipe['tags']) ?>">
+    </div>
+
+    <button type="submit">Update Recipe</button>
+</form>

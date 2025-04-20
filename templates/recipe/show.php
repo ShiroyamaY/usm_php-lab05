@@ -40,9 +40,10 @@
     <?php endif; ?>
 
     <div class="actions">
-        <a href="/recipe/edit?id=<?= $recipe['id'] ?>">Edit</a> |
-        <a href="/recipe/delete?id=<?= $recipe['id'] ?>"
-           onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</a> |
+        <a href="/recipe/edit/<?php echo $recipe['id'] ?>">Edit</a>
+        <form method="post" action="/recipe/delete/<?php echo $recipe['id'] ?>">
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</button>
+        </form>
         <a href="/">Back to all recipes</a>
     </div>
 </div>

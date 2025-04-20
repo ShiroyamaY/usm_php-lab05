@@ -12,16 +12,17 @@
     <?php foreach ($recipes as $recipe): ?>
         <div class="recipe-card">
             <h3>
-                <a href="/recipe/show?id=<?= $recipe['id'] ?>">
+                <a href="/recipe/show/<?= $recipe['id'] ?>">
                     <?= sanitize($recipe['title']) ?>
                 </a>
             </h3>
             <p><strong>Category:</strong> <?= sanitize($recipe['category_name']) ?></p>
             <p><?= substr(sanitize($recipe['description']), 0, 200) ?>...</p>
             <div>
-                <a href="/recipe/edit?id=<?= $recipe['id'] ?>">Edit</a> |
-                <a href="/recipe/delete?id=<?= $recipe['id'] ?>"
-                   onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</a>
+                <a href="/recipe/edit/<?php echo $recipe['id'] ?>">Edit</a>
+                <form method="post" action="/recipe/delete/<?php echo $recipe['id'] ?>">
+                    <button type="submit" onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</button>
+                </form>
             </div>
         </div>
     <?php endforeach; ?>
